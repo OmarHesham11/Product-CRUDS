@@ -18,6 +18,7 @@ function addProduct() {
         products.unshift(product);
         console.log(products);
         clearForm();
+        displayProducts();
     } else {
         error = "Missing Input!";
         document.getElementById('error').innerHTML = error;
@@ -29,4 +30,20 @@ function clearForm() {
     productPrice.value = null;
     productCategory.value = null;
     productDesc.value = null;
+}
+
+function displayProducts() {
+    var productContainer = products.map((product) => {
+        return (
+            `<tr>
+                <td>${product.name}</td>
+                <td>${product.price}</td>
+                <td>${product.category}</td>
+                <td>${product.desc}</td>
+                <td><button class="btn btn-outline-warning">Update</button></td>
+                <td><button class="btn btn-outline-danger">Delete</button></td>
+            <tr>`
+        )
+    })
+    document.getElementById('tableBody').innerHTML = productContainer;
 }
