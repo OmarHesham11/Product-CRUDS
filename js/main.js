@@ -3,7 +3,15 @@ var productPrice = document.getElementById("productPrice");
 var productCategory = document.getElementById("productCategory");
 var productDesc = document.getElementById("productDesc");
 var error;
-var products = [];
+var products;
+
+if(localStorage.getItem("myProducts")) {
+
+    products = JSON.parse(localStorage.getItem("myProducts"));
+    displayProducts();
+}else {
+    products = [];
+}
 
 function addProduct() {
     if(productName.value && productPrice.value && productCategory.value && productDesc.value) {
@@ -16,6 +24,7 @@ function addProduct() {
             desc: productDesc.value.trim()
         }
         products.unshift(product);
+        localStorage.setItem("myProducts", JSON.stringify(products));
         console.log(products);
         clearForm();
         displayProducts();
@@ -41,9 +50,13 @@ function displayProducts() {
                 <td>${product.category}</td>
                 <td>${product.desc}</td>
                 <td><button class="btn btn-outline-warning">Update</button></td>
-                <td><button class="btn btn-outline-danger">Delete</button></td>
+                <td><button class="btn btn-outline-danger" onClick="deleteProduct();">Delete</button></td>
             <tr>`
         )
     })
     document.getElementById('tableBody').innerHTML = productContainer;
 }
+
+// function deleteProduct(id) {
+//     products.splice()
+// }
